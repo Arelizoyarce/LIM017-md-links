@@ -1,23 +1,41 @@
-{"name":"md-links",
-  "jest":{
-    "transform":{
-      "^.+\\.[t|j]sx?$":"babel-jest"
-      }},
-    "version":"0.1.0",
-    "engines":{
-      "node":">=14.x"},
-    "type":"module",
-    "scripts":{
-      "eslint":"eslint --ext .js src/ test/",
-      "test":"jest --env=jsdom --coverage",
-      "start":"node src/index.js"
-    },
-      "devDependencies":{
-        "@babel/preset-env":"^7.17.12",
-        "babel-jest":"^28.1.0",
-        "jest-environment-jsdom":"^28.1.0"
-      },
-        "dependencies":{
-          "jest":"^28.1.0"
-          }
+{
+    "name": "md-links",
+    "jest": {
+        "transform": {
+            "^.+\\.[t|j]sx?$": "babel-jest"
         }
+    },
+    "version": "0.1.0",
+    "description": "md-links is a framework to find links in md files",
+    "author": "Areliz Oyarce / oyarceareliz@gmail.com / https://github.com/Arelizoyarce/LIM017-md-links",
+    "license": "ISC",
+    "main": "index.js",
+    "engines": {
+        "node": ">=14.x"
+    },
+    "type": "module",
+    "scripts": {
+        "eslint": "eslint --ext .js test",
+        "pretest": "npm run eslint",
+        "test": "jest --env=jsdom --coverage",
+        "start": "node index.js"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.18.0",
+        "@babel/eslint-parser": "^7.17.0",
+        "@babel/preset-env": "^7.17.12",
+        "babel-jest": "^28.1.0",
+        "eslint": "^8.16.0",
+        "eslint-plugin-jest": "^25.3.0",
+        "jest-environment-jsdom": "^28.1.0"
+    },
+    "dependencies": {
+        "chalk": "^5.0.1",
+        "eslint-config-standard": "^17.0.0",
+        "jest": "^28.1.0",
+        "node-fetch": "^3.2.4"
+    },
+    "bin": {
+        "md-links": "cli.js"
+    }
+}
