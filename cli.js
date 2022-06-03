@@ -15,6 +15,8 @@ if (entryArray.length === 3) {
           console.log(`${(e.file)} ${chalk.green(e.href)} ${(e.text)}`)
         }
       })
+    }).catch((error) => {
+      console.log(chalk.red(error))
     })
 }
 if (entryArray.length === 4) {

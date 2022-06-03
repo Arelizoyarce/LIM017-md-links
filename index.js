@@ -2,15 +2,14 @@
 import {
   readaPathDirectory,
   getLinksFileMD,
-  getLinksofDirectory,
+  getFilesMdofDirectory,
   validatePath,
   ifIsDirectory,
   ifIsFile,
   findMdFile,
   validateLinks,
   determinateAbsolutePath,
-  getStatsLinks,
-  readaPathFile
+  getStatsLinks
 } from './api.js'
 
 // Promesa planteada para que devuelva resultados solo ingresando ruta (falta validate y stast)
@@ -21,16 +20,16 @@ export const mdLinks = (path, option = { validate: false, stats: false }) => {
       let arrayLinks = []
       if (ifIsDirectory(pathAbsolute)) {
         if (readaPathDirectory(pathAbsolute).length !== 0) {
-          arrayLinks = getLinksofDirectory(pathAbsolute)
+          arrayLinks = getLinksFileMD(getFilesMdofDirectory(pathAbsolute))
         } else {
-          reject('Carpeta vacía')
+          reject('Empty folder')
         }
       }
       if (ifIsFile(pathAbsolute)) {
         if (findMdFile(pathAbsolute)) {
-          arrayLinks = getLinksFileMD(pathAbsolute)
+          arrayLinks = getLinksFileMD([pathAbsolute])
         } else {
-          reject('La ruta ingresada no es .md')
+          reject('The path entered is not .md')
         }
       }
       if (!option.validate && option.stats) {
@@ -57,8 +56,11 @@ export const mdLinks = (path, option = { validate: false, stats: false }) => {
           })
         return failLinks
       }
+      if (!option.validate && !option.stats) {
+        resolve(arrayLinks)
+      }
     } else {
-      reject('La ruta ingresada no existe')
+      reject('The path entered does not exist')
     }
   })
 }
