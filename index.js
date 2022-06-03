@@ -1,3 +1,5 @@
+/* eslint-disable no-constant-condition */
+/* eslint-disable no-cond-assign */
 /* eslint-disable prefer-promise-reject-errors */
 import {
   readaPathDirectory,
@@ -9,7 +11,8 @@ import {
   findMdFile,
   validateLinks,
   determinateAbsolutePath,
-  getStatsLinks
+  getStatsLinks,
+  readaPathFile
 } from './api.js'
 
 // Promesa planteada para que devuelva resultados solo ingresando ruta (falta validate y stast)
@@ -26,10 +29,17 @@ export const mdLinks = (path, option = { validate: false, stats: false }) => {
         }
       }
       if (ifIsFile(pathAbsolute)) {
-        if (findMdFile(pathAbsolute)) {
-          arrayLinks = getLinksFileMD([pathAbsolute])
+        if (readaPathFile(pathAbsolute) !== '') {
+          if (findMdFile(pathAbsolute)) {
+            arrayLinks = getLinksFileMD([pathAbsolute])
+            if (arrayLinks = []) {
+              reject('Does not links here')
+            }
+          } else {
+            reject('The path entered is not .md')
+          }
         } else {
-          reject('The path entered is not .md')
+          reject('empty file')
         }
       }
       if (!option.validate && option.stats) {

@@ -1,3 +1,4 @@
+/* eslint-disable prefer-promise-reject-errors */
 /* eslint-disable space-infix-ops */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
@@ -9,18 +10,15 @@ import {
   ifIsDirectory,
   getLinksFileMD,
   getFilesMdofDirectory,
-  getStatsLinks
+  getStatsLinks,
+  validateLinks
 } from '../api.js'
+
 import fetch from 'node-fetch'
 jest.mock('node-fetch', () => jest.fn())
 
 const route = './archivosdeprueba'
 const arrayLinks = [
-  {
-    href: 'http://community.laboratoria.la/t/modulos-librerias-paquetes-frameworks-cual-es-la-diferencia/175',
-    text: 'Módulos, librerías, paquetes, frameworks... ¿cuál ',
-    file: 'exampleFileMD.md'
-  },
   {
     href: 'https://carlosazaustre.es/manejando-la-asincronia-en-javascript',
     text: 'Asíncronía en js',
@@ -50,8 +48,54 @@ const arrayFiles = [
   'archivosdeprueba\\exampletwo.md'
 ]
 
-const objStats = { file: 'exampleFileMD.md', total: 5, unique: 4 }
+const arrayLinksStatus = [
+  {
+    href: 'https://carlosazaustre.es/manejando-la-asincronia-en-javascript',
+    text: 'Asíncronía en js',
+    file: 'exampleFileMD.md',
+    status: 200,
+    msg: 'OK'
+  },
+  {
+    href: 'https://docs.npmjs.com/getting-started/what-is-npm',
+    text: 'NPM',
+    file: 'exampleFileMD.md',
+    status: 200,
+    msg: 'OK'
+  },
+  {
+    href: 'https://docs.npmjs.com/getting-started/publishing-npm-packages',
+    text: 'Publicar packpage',
+    file: 'exampleFileMD.md',
+    status: 200,
+    msg: 'OK'
+  },
+  {
+    href: 'https://docs.npmjs.com/getting-started/publishing-npm-packages',
+    text: 'Publicar packpage',
+    file: 'exampleFileMD.md',
+    status: 200,
+    msg: 'OK'
+  }
+]
 
+const objStats = { file: 'exampleFileMD.md', total: 4, unique: 3 }
+
+const arrayFail = [
+  {
+    href: 'http://community.laboratoria.la/t/modulos-librerias-paquetes-frameworks-cual-es-la-diferencia/175',
+    text: 'Módulos, librerías, paquetes, frameworks... ¿cuál',
+    file: 'exampleFileMD.md'
+  }
+]
+const returnArrayFail= [{
+  href: 'http://community.laboratoria.la/t/modulos-librerias-paquetes-frameworks-cual-es-la-diferencia/175',
+  text: 'Módulos, librerías, paquetes, frameworks... ¿cuál',
+  file: 'exampleFileMD.md',
+  status: 'Fail Request',
+  msg: 'fail'
+}
+]
 describe('validatePath', () => {
   it('should be return true if the path exists', () => {
     expect(validatePath(route)).toBe(true)
@@ -89,6 +133,9 @@ describe('ifIsDirectory', () => {
 })
 
 describe('getLinksFileMD', () => {
+  it('should be return array empty if does not have links', () => {
+    expect(getLinksFileMD(['exampleFileNull.md'])).toStrictEqual([])
+  })
   it('should be return array with links', () => {
     expect(getLinksFileMD(['exampleFileMD.md'])).toStrictEqual(arrayLinks)
   })
@@ -103,5 +150,28 @@ describe('getFilesMdofDirectory', () => {
 describe('getStatsLinks', () => {
   it('should be return an object with links information', () => {
     expect(getStatsLinks(arrayLinks)).toStrictEqual(objStats)
+  })
+})
+
+describe('validateLinks', () => {
+  it('should be return href, text, file, status, msg', () => {
+    fetch.mockImplementation(() => Promise.resolve({
+      status: 200,
+      msg: 'OK'
+    }))
+    return validateLinks(arrayLinks)
+      .then((data) => {
+        expect(data).toEqual(arrayLinksStatus)
+      })
+  })
+  it('should be return href, text, file, status, msg', () => {
+    fetch.mockImplementation(() => Promise.reject({
+      status: 'Not found',
+      msg: 'fail'
+    }))
+    return validateLinks(arrayFail)
+      .then((data) => {
+        expect(data).toEqual(returnArrayFail)
+      })
   })
 })

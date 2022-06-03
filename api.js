@@ -55,6 +55,8 @@ export const getLinksFileMD = (arrayFiles) => {
           })
         }
       })
+    } else {
+      arrayLinks
     }
   })
   return arrayLinks
@@ -64,12 +66,13 @@ export const validateLinks = (arrayLinks) => {
   const arrayLinksStatus = arrayLinks.map(e => {
     const fetchPromise = fetch(e.href)
       .then((data) => {
+        const okOrFail = data.status >= 200 && data.status <= 299 ? 'OK' : 'fail'
         return {
           href: e.href,
           text: e.text,
           file: e.file,
           status: data.status,
-          msg: data.statusText
+          msg: okOrFail
         }
       }).catch(() => ({
         href: e.href,
