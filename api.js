@@ -4,6 +4,7 @@ import path from 'path'
 import fetch from 'node-fetch'
 
 const arrayLinks = []
+let arrayFiles = []
 
 // Función para determinar si la ruta es absoluta o no
 export const determinateAbsolutePath = (pathRoot) => path.isAbsolute(pathRoot) ? pathRoot : createAbsolutePath(pathRoot)
@@ -37,23 +38,25 @@ export const findMdFile = (pathRoot) => path.extname(pathRoot) === '.md'
 export const readaPathDirectory = (pathRoot) => fs.readdirSync(pathRoot)
 
 // Función que extrae links de los archivos md, si no hay devuelve array vacío
-export const getLinksFileMD = (pathRoot) => {
-  const fileContent = readaPathFile(pathRoot)
+export const getLinksFileMD = (arrayFiles) => {
   const foundLinksRegEx = /\[([^\[]+)\](\(.*\))/gm
   const contentLinkRegEx = /\[([^\[]+)\]\((.*)\)/
-  const linksonMdFile = fileContent.match(foundLinksRegEx)
-  if (linksonMdFile !== null) {
-    linksonMdFile.forEach(link => {
-      const foundLinksMd = link.match(contentLinkRegEx)
-      if (foundLinksMd[2].includes('http')) {
-        arrayLinks.push({
-          href: foundLinksMd[2],
-          text: foundLinksMd[1].slice(0, 50),
-          file: pathRoot
-        })
-      }
-    })
-  }
+  arrayFiles.forEach(e => {
+    const fileContent = readaPathFile(e)
+    const linksonMdFile = fileContent.match(foundLinksRegEx)
+    if (linksonMdFile !== null) {
+      linksonMdFile.forEach(link => {
+        const foundLinksMd = link.match(contentLinkRegEx)
+        if (foundLinksMd[2].includes('http')) {
+          arrayLinks.push({
+            href: foundLinksMd[2],
+            text: foundLinksMd[1].slice(0, 50),
+            file: e
+          })
+        }
+      })
+    }
+  })
   return arrayLinks
 }
 // valida la url
@@ -82,21 +85,22 @@ export const validateLinks = (arrayLinks) => {
 }
 
 // recursividad / para obtener los archivos MD de cada directorio y encontrar los links en cada archivo de cada direcrtorio
-export const getLinksofDirectory = (pathRoot) => {
+export const getFilesMdofDirectory = (pathRoot) => {
   readaPathDirectory(pathRoot).forEach(e => {
     const newPathDirectory = path.join(pathRoot, e)
     if (ifIsFile(newPathDirectory)) {
       if (findMdFile(newPathDirectory)) {
-        const links = getLinksFileMD(newPathDirectory)
-        arrayLinks.push(links)
+        arrayFiles.push(newPathDirectory)
       }
     } else {
-      getLinksofDirectory(newPathDirectory)
-    }
+      arrayFiles = arrayFiles.concat(getFilesMdofDirectory(newPathDirectory))
+      return arrayFiles
+    };
   }
   )
-  return arrayLinks
+  return arrayFiles
 }
+
 // para obtener stats de los links
 export const getStatsLinks = (arrayLinks) => {
   const linksUnique = new Set(arrayLinks.map(e => e.href))

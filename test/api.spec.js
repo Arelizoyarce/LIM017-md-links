@@ -1,32 +1,56 @@
+/* eslint-disable space-infix-ops */
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import { getFilesMdofDirectory, getLinksFileMD, determinateAbsolutePath, createAbsolutePath, validatePath, ifIsFile, ifIsDirectory, findMdFile, readaPathFile } from '../api.js'
+import {
+  validatePath,
+  createAbsolutePath,
+  determinateAbsolutePath,
+  ifIsFile,
+  ifIsDirectory,
+  getLinksFileMD,
+  getFilesMdofDirectory,
+  getStatsLinks
+} from '../api.js'
+import fetch from 'node-fetch'
+jest.mock('node-fetch', () => jest.fn())
 
 const route = './archivosdeprueba'
-const absoluteRoute = 'C:\\LABORATORIA PROYECTOS\\P4-MDLINKS\\LIM017-md-links\\archivosdeprueba'
 const arrayLinks = [
   {
-    href: 'Módulos, librerías, paquetes, frameworks... ¿cuál es la diferencia?',
-    text: 'http://community.laboratoria.la/t/modulos-librerias-paquetes-frameworks-cual-es-la-diferencia/175',
+    href: 'http://community.laboratoria.la/t/modulos-librerias-paquetes-frameworks-cual-es-la-diferencia/175',
+    text: 'Módulos, librerías, paquetes, frameworks... ¿cuál ',
     file: 'exampleFileMD.md'
   },
   {
-    href: 'Asíncronía en js',
-    text: 'https://carlosazaustre.es/manejando-la-asincronia-en-javascript',
+    href: 'https://carlosazaustre.es/manejando-la-asincronia-en-javascript',
+    text: 'Asíncronía en js',
     file: 'exampleFileMD.md'
   },
   {
-    href: 'NPM',
-    text: 'https://docs.npmjs.com/getting-started/what-is-npm',
+    href: 'https://docs.npmjs.com/getting-started/what-is-npm',
+    text: 'NPM',
     file: 'exampleFileMD.md'
   },
   {
-    href: 'Publicar packpage',
-    text: 'https://docs.npmjs.com/getting-started/publishing-npm-packages',
+    href: 'https://docs.npmjs.com/getting-started/publishing-npm-packages',
+    text: 'Publicar packpage',
+    file: 'exampleFileMD.md'
+  },
+  {
+    href: 'https://docs.npmjs.com/getting-started/publishing-npm-packages',
+    text: 'Publicar packpage',
     file: 'exampleFileMD.md'
   }
 ]
 
-const arrayFiles = ['examplethree.md', 'exampletwo.md']
+const arrayFiles = [
+  'archivosdeprueba\\carpetadeprueba\\carpetapueba2\\carpetaprueba3\\exampleprueba6.md',
+  'archivosdeprueba\\carpetadeprueba\\carpetapueba2\\exampleprueba5.md',
+  'archivosdeprueba\\carpetadeprueba\\examplethree.md',
+  'archivosdeprueba\\exampletwo.md'
+]
+
+const objStats = { file: 'exampleFileMD.md', total: 5, unique: 4 }
 
 describe('validatePath', () => {
   it('should be return true if the path exists', () => {
@@ -34,67 +58,50 @@ describe('validatePath', () => {
   })
 })
 
-describe('determinateAbsolutePath', () => {
-  it('should be return false for absolute path', () => {
-    expect(determinateAbsolutePath(route)).toBe(false)
+describe('createAbsolutePath', () => {
+  it('should be return absolute Path', () => {
+    expect(createAbsolutePath('exampleFileMD.md')).toBe('C:\\LABORATORIA PROYECTOS\\P4-MDLINKS\\LIM017-md-links\\exampleFileMD.md')
   })
 })
 
-describe('createAbsolutePath', () => {
-  it('should be return a absolute path', () => {
-    expect(createAbsolutePath(route)).toBe(absoluteRoute)
+describe('determinateAbsolutePath', () => {
+  it('should be return path if is an absolute path', () => {
+    expect(determinateAbsolutePath('C:\\LABORATORIA PROYECTOS\\P4-MDLINKS\\LIM017-md-links\\exampleFileMD.md')).toBe('C:\\LABORATORIA PROYECTOS\\P4-MDLINKS\\LIM017-md-links\\exampleFileMD.md')
+  })
+  it('should be return absolute path if is an relative path', () => {
+    expect(determinateAbsolutePath('exampleFileMD.md')).toBe('C:\\LABORATORIA PROYECTOS\\P4-MDLINKS\\LIM017-md-links\\exampleFileMD.md')
   })
 })
 
 describe('ifIsFile', () => {
-  it('should be return false if path is not a file', () => {
-    expect(ifIsFile(route)).toBe(false)
+  it('should be return true if is a file', () => {
+    expect(ifIsFile('exampleFileMD.md')).toBe(true)
   })
-  it('should be return true if path is a file', () => {
-    expect(ifIsFile('exampleFile.txt')).toBe(true)
+  it('should be return false if is a directory', () => {
+    expect(ifIsFile(route)).toBe(false)
   })
 })
 
 describe('ifIsDirectory', () => {
-  it('should be return false if path is not a directory', () => {
-    expect(ifIsDirectory('exampleFile.txt')).toBe(false)
-  })
-  it('should be return true if path is a directory', () => {
+  it('should be return true if is a directory', () => {
     expect(ifIsDirectory(route)).toBe(true)
-  })
-})
-// describe('readaPathFile', () => {
-//   it('should be return el archivo está vació if the file.leght is 0', () => {
-//     expect(readaPathFile('exampleFileMDNull.md')).toStrictEqual([])
-//   })
-//   it('should be return links of md file', () => {
-//     expect(readaPathFile('exampleFileMD.md')).toEqual(arrayLinks)
-//   })
-// })
-
-// describe('getContentMdFile', () => {
-//   it('should be return el archivo no es .md if it isnt .md', () => {
-//     expect(getContentMdFile('exampleFile.txt')).toBe(console.log('el archivo no es .md'))
-//   })
-//   it('should be return array file content if the file is .md', () => {
-//     expect(getContentMdFile('exampleFileMD.md')).toBe(readaPathFile('exampleFileMD.md'))
-//   })
-// })
-
-describe('findMdFile', () => {
-  it('should be return true if the file is .md', () => {
-    expect(findMdFile('exampleFile.txt')).toBe(false)
   })
 })
 
 describe('getLinksFileMD', () => {
-  it('should be return array with the links', () => {
-    expect(getLinksFileMD(readaPathFile('exampleFileMD.md'), 'exampleFileMD.md')).toStrictEqual(arrayLinks)
+  it('should be return array with links', () => {
+    expect(getLinksFileMD(['exampleFileMD.md'])).toStrictEqual(arrayLinks)
   })
 })
 
 describe('getFilesMdofDirectory', () => {
-  it('should be return array md file list', () => {
+  it('should be return array with files .md', () => {
     expect(getFilesMdofDirectory('archivosdeprueba')).toStrictEqual(arrayFiles)
+  })
+})
+
+describe('getStatsLinks', () => {
+  it('should be return an object with links information', () => {
+    expect(getStatsLinks(arrayLinks)).toStrictEqual(objStats)
   })
 })
