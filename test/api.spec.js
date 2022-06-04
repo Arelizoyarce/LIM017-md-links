@@ -174,6 +174,7 @@ describe('validateLinks', () => {
     }))
     return validateLinks(arrayFail)
       .then((data) => {
+        console.log(data)
         expect(data).toEqual(returnArrayFail)
       })
   })

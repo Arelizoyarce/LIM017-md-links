@@ -1,3 +1,10 @@
+# Proyect Md-Links 🔗
+## Qué es Md-Links ❓
+Md-links es un framework de Javascript que te permite reconocer URLs dentro de una archivo Markdown,
+validarlas mediante un llamado HTTP y obtener información estadistica de estos: estado de enlace,
+enlaces totales en un archivo, enlaces únicos y enlaces rotos.
+![md-links](https://user-images.githubusercontent.com/98667463/172027048-aebe0a9e-9f9a-4345-a1ab-e0a4307e8d91.png)
+
 # Markdown Links
 
 ## Índice
@@ -76,7 +83,7 @@ Reflexiona y luego marca los objetivos que has llegado a entender y aplicar en t
   * [Array.prototype.reduce() - MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce)
 </p></details>
 
-- [ ] **Objetos (key, value)**
+- [x] **Objetos (key, value)**
 
   <details><summary>Links</summary><p>
 
@@ -101,7 +108,7 @@ Reflexiona y luego marca los objetivos que has llegado a entender y aplicar en t
   * [Funciones — bloques de código reutilizables - MDN](https://developer.mozilla.org/es/docs/Learn/JavaScript/Building_blocks/Functions)
 </p></details>
 
-- [ ] **Recursión o recursividad**
+- [x] **Recursión o recursividad**
 
   <details><summary>Links</summary><p>
 
@@ -125,7 +132,7 @@ Reflexiona y luego marca los objetivos que has llegado a entender y aplicar en t
   * [Función Callback - MDN](https://developer.mozilla.org/es/docs/Glossary/Callback_function)
 </p></details>
 
-- [ ] **Promesas**
+- [x] **Promesas**
 
   <details><summary>Links</summary><p>
 
@@ -140,14 +147,14 @@ Reflexiona y luego marca los objetivos que has llegado a entender y aplicar en t
   * [Empezando con Jest - Documentación oficial](https://jestjs.io/docs/es-ES/getting-started)
 </p></details>
 
-- [ ] **Pruebas asíncronas**
+- [x] **Pruebas asíncronas**
 
   <details><summary>Links</summary><p>
 
   * [Tests de código asincrónico con Jest - Documentación oficial](https://jestjs.io/docs/es-ES/asynchronous)
 </p></details>
 
-- [ ] **Uso de mocks y espías**
+- [x] **Uso de mocks y espías**
 
   <details><summary>Links</summary><p>
 
@@ -169,7 +176,7 @@ Reflexiona y luego marca los objetivos que has llegado a entender y aplicar en t
   * [Sitio oficial de npm (en inglés)](https://www.npmjs.com/)
 </p></details>
 
-- [ ] **Configuración de package.json**
+- [x] **Configuración de package.json**
 
   <details><summary>Links</summary><p>
 
@@ -183,7 +190,7 @@ Reflexiona y luego marca los objetivos que has llegado a entender y aplicar en t
   * [scripts - Documentación oficial (en inglés)](https://docs.npmjs.com/misc/scripts)
 </p></details>
 
-- [ ] **process (env, argv, stdin-stdout-stderr, exit-code)**
+- [x] **process (env, argv, stdin-stdout-stderr, exit-code)**
 
   <details><summary>Links</summary><p>
 
@@ -221,7 +228,7 @@ Reflexiona y luego marca los objetivos que has llegado a entender y aplicar en t
 
 ### HTTP
 
-- [ ] **Consulta o petición (request) y respuesta (response).**
+- [x] **Consulta o petición (request) y respuesta (response).**
 
   <details><summary>Links</summary><p>
 
@@ -229,7 +236,7 @@ Reflexiona y luego marca los objetivos que has llegado a entender y aplicar en t
   * [Mensajes HTTP - MDN](https://developer.mozilla.org/es/docs/Web/HTTP/Messages)
 </p></details>
 
-- [ ] **Codigos de status de HTTP**
+- [x] **Codigos de status de HTTP**
 
   <details><summary>Links</summary><p>
 
@@ -529,16 +536,16 @@ si tienes dudas existenciales con respecto a estas decisiones. No existe una
 
 ### CLI
 
-* [ ] Expone ejecutable `md-links` en el path (configurado en `package.json`)
-* [ ] Se ejecuta sin errores / output esperado
-* [ ] Implementa `--validate`
-* [ ] Implementa `--stats`
+* [x] Expone ejecutable `md-links` en el path (configurado en `package.json`)
+* [x] Se ejecuta sin errores / output esperado
+* [x] Implementa `--validate`
+* [x] Implementa `--stats`
 
 ### Pruebas / tests
 
-* [ ] Pruebas unitarias cubren un mínimo del 70% de statements, functions,
+* [x] Pruebas unitarias cubren un mínimo del 70% de statements, functions,
   lines, y branches.
-* [ ] Pasa tests (y linters) (`npm test`).
+* [x] Pasa tests (y linters) (`npm test`).
 
 ## 10. Achicando el problema
 
