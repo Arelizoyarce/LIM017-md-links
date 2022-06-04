@@ -29,17 +29,14 @@ export const mdLinks = (path, option = { validate: false, stats: false }) => {
         }
       }
       if (ifIsFile(pathAbsolute)) {
-        if (readaPathFile(pathAbsolute) !== '') {
-          if (findMdFile(pathAbsolute)) {
+        if (findMdFile(pathAbsolute)) {
+          if (readaPathFile(pathAbsolute) !== '') {
             arrayLinks = getLinksFileMD([pathAbsolute])
-            if (arrayLinks = []) {
-              reject('Does not links here')
-            }
           } else {
-            reject('The path entered is not .md')
+            reject('empty file')
           }
         } else {
-          reject('empty file')
+          reject('The path entered is not .md')
         }
       }
       if (!option.validate && option.stats) {
