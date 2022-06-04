@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 /* eslint-disable prefer-promise-reject-errors */
 /* eslint-disable space-infix-ops */
 /* eslint-disable no-unused-vars */
@@ -45,6 +46,8 @@ const arrayFiles = [
   'archivosdeprueba\\carpetadeprueba\\carpetapueba2\\carpetaprueba3\\exampleprueba6.md',
   'archivosdeprueba\\carpetadeprueba\\carpetapueba2\\exampleprueba5.md',
   'archivosdeprueba\\carpetadeprueba\\examplethree.md',
+  "archivosdeprueba\\exampleFileEmpty.md",
+  "archivosdeprueba\\exampleFileNull.md",
   'archivosdeprueba\\exampletwo.md'
 ]
 
@@ -134,7 +137,7 @@ describe('ifIsDirectory', () => {
 
 describe('getLinksFileMD', () => {
   it('should be return array empty if does not have links', () => {
-    expect(getLinksFileMD(['exampleFileNull.md'])).toStrictEqual([])
+    expect(getLinksFileMD(['archivosdeprueba/exampleFileNull.md'])).toStrictEqual([])
   })
   it('should be return array with links', () => {
     expect(getLinksFileMD(['exampleFileMD.md'])).toStrictEqual(arrayLinks)
