@@ -8,6 +8,9 @@
     "version": "0.1.0",
     "description": "md-links is a framework to find links in md files",
     "author": "Areliz Oyarce / oyarceareliz@gmail.com / https://github.com/Arelizoyarce/LIM017-md-links",
+    "repository": {
+        "url": "https://github.com/Arelizoyarce/LIM017-md-links.git"
+    },
     "license": "ISC",
     "main": "src/index.js",
     "engines": {
@@ -37,5 +40,5 @@
     },
      "bin": {
          "md-links": "cli.js"
-     }
+    }
 }
