@@ -13,7 +13,7 @@ import {
   determinateAbsolutePath,
   getStatsLinks,
   readaPathFile
-} from './api.js'
+} from './api'
 
 // Promesa planteada para que devuelva resultados solo ingresando ruta (falta validate y stast)
 export const mdLinks = (path, option = { validate: false, stats: false }) => {

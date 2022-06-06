@@ -13,7 +13,7 @@ import {
   getFilesMdofDirectory,
   getStatsLinks,
   validateLinks
-} from '../src/api.js'
+} from '../api'
 
 import fetch from 'node-fetch'
 jest.mock('node-fetch', () => jest.fn())

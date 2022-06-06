@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import { mdLinks } from '../src/index.js'
+import { mdLinks } from '../index.js'
 import fetch from 'node-fetch'
 jest.mock('node-fetch', () => jest.fn())
 

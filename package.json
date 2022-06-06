@@ -12,7 +12,7 @@
         "url": "https://github.com/Arelizoyarce/LIM017-md-links.git"
     },
     "license": "ISC",
-    "main": "src/index.js",
+    "main": "index.js",
     "engines": {
         "node": ">=14.x"
     },
