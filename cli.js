@@ -34,7 +34,9 @@ if (entryArray.length === 4) {
   if (option === '--stats') {
     mdLinks(path, { validate: false, stats: true })
       .then((result) => {
-        console.log(result)
+        console.log(`file: ${chalk.green(result.file)}
+  total: ${chalk.yellow(result.total)}
+  unique: ${chalk.yellow(result.unique)}`)
       })
   }
 }
@@ -42,6 +44,9 @@ if (entryArray.length === 4) {
 if (entryArray.length === 5) {
   mdLinks(path, { validate: true, stats: true })
     .then((result) => {
-      console.log(result)
+      console.log(`file: ${chalk.green(result.file)}
+  total: ${chalk.yellow(result.total)}
+  unique: ${chalk.yellow(result.unique)}
+  broken: ${chalk.yellow(result.broken)}`)
     })
 }
