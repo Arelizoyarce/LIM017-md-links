@@ -13,7 +13,7 @@ import {
   getFilesMdofDirectory,
   getStatsLinks,
   validateLinks
-} from '../api.js'
+} from '../src/api.js'
 
 import fetch from 'node-fetch'
 jest.mock('node-fetch', () => jest.fn())
@@ -23,22 +23,22 @@ const arrayLinks = [
   {
     href: 'https://carlosazaustre.es/manejando-la-asincronia-en-javascript',
     text: 'Asíncronía en js',
-    file: 'exampleFileMD.md'
+    file: 'archivosdeprueba/exampleFileMD.md'
   },
   {
     href: 'https://docs.npmjs.com/getting-started/what-is-npm',
     text: 'NPM',
-    file: 'exampleFileMD.md'
+    file: 'archivosdeprueba/exampleFileMD.md'
   },
   {
     href: 'https://docs.npmjs.com/getting-started/publishing-npm-packages',
     text: 'Publicar packpage',
-    file: 'exampleFileMD.md'
+    file: 'archivosdeprueba/exampleFileMD.md'
   },
   {
     href: 'https://docs.npmjs.com/getting-started/publishing-npm-packages',
     text: 'Publicar packpage',
-    file: 'exampleFileMD.md'
+    file: 'archivosdeprueba/exampleFileMD.md'
   }
 ]
 
@@ -47,6 +47,8 @@ const arrayFiles = [
   'archivosdeprueba\\carpetadeprueba\\carpetapueba2\\exampleprueba5.md',
   'archivosdeprueba\\carpetadeprueba\\examplethree.md',
   "archivosdeprueba\\exampleFileEmpty.md",
+  "archivosdeprueba\\exampleFileMD.md",
+  "archivosdeprueba\\exampleFileMdBroken.md",
   "archivosdeprueba\\exampleFileNull.md",
   'archivosdeprueba\\exampletwo.md'
 ]
@@ -55,34 +57,34 @@ const arrayLinksStatus = [
   {
     href: 'https://carlosazaustre.es/manejando-la-asincronia-en-javascript',
     text: 'Asíncronía en js',
-    file: 'exampleFileMD.md',
+    file: 'archivosdeprueba/exampleFileMD.md',
     status: 200,
     msg: 'OK'
   },
   {
     href: 'https://docs.npmjs.com/getting-started/what-is-npm',
     text: 'NPM',
-    file: 'exampleFileMD.md',
+    file: 'archivosdeprueba/exampleFileMD.md',
     status: 200,
     msg: 'OK'
   },
   {
     href: 'https://docs.npmjs.com/getting-started/publishing-npm-packages',
     text: 'Publicar packpage',
-    file: 'exampleFileMD.md',
+    file: 'archivosdeprueba/exampleFileMD.md',
     status: 200,
     msg: 'OK'
   },
   {
     href: 'https://docs.npmjs.com/getting-started/publishing-npm-packages',
     text: 'Publicar packpage',
-    file: 'exampleFileMD.md',
+    file: 'archivosdeprueba/exampleFileMD.md',
     status: 200,
     msg: 'OK'
   }
 ]
 
-const objStats = { file: 'exampleFileMD.md', total: 4, unique: 3 }
+const objStats = { file: 'archivosdeprueba/exampleFileMD.md', total: 4, unique: 3 }
 
 const arrayFail = [
   {
@@ -107,22 +109,22 @@ describe('validatePath', () => {
 
 describe('createAbsolutePath', () => {
   it('should be return absolute Path', () => {
-    expect(createAbsolutePath('exampleFileMD.md')).toBe('C:\\LABORATORIA PROYECTOS\\P4-MDLINKS\\LIM017-md-links\\exampleFileMD.md')
+    expect(createAbsolutePath('archivosdeprueba/exampleFileMD.md')).toBe('C:\\LABORATORIA PROYECTOS\\P4-MDLINKS\\LIM017-md-links\\archivosdeprueba\\exampleFileMD.md')
   })
 })
 
 describe('determinateAbsolutePath', () => {
   it('should be return path if is an absolute path', () => {
-    expect(determinateAbsolutePath('C:\\LABORATORIA PROYECTOS\\P4-MDLINKS\\LIM017-md-links\\exampleFileMD.md')).toBe('C:\\LABORATORIA PROYECTOS\\P4-MDLINKS\\LIM017-md-links\\exampleFileMD.md')
+    expect(determinateAbsolutePath('C:\\LABORATORIA PROYECTOS\\P4-MDLINKS\\LIM017-md-links\\archivosdeprueba\\exampleFileMD.md')).toBe('C:\\LABORATORIA PROYECTOS\\P4-MDLINKS\\LIM017-md-links\\archivosdeprueba\\exampleFileMD.md')
   })
   it('should be return absolute path if is an relative path', () => {
-    expect(determinateAbsolutePath('exampleFileMD.md')).toBe('C:\\LABORATORIA PROYECTOS\\P4-MDLINKS\\LIM017-md-links\\exampleFileMD.md')
+    expect(determinateAbsolutePath('archivosdeprueba/exampleFileMD.md')).toBe('C:\\LABORATORIA PROYECTOS\\P4-MDLINKS\\LIM017-md-links\\archivosdeprueba\\exampleFileMD.md')
   })
 })
 
 describe('ifIsFile', () => {
   it('should be return true if is a file', () => {
-    expect(ifIsFile('exampleFileMD.md')).toBe(true)
+    expect(ifIsFile('archivosdeprueba/exampleFileMD.md')).toBe(true)
   })
   it('should be return false if is a directory', () => {
     expect(ifIsFile(route)).toBe(false)
@@ -140,7 +142,7 @@ describe('getLinksFileMD', () => {
     expect(getLinksFileMD(['archivosdeprueba/exampleFileNull.md'])).toStrictEqual([])
   })
   it('should be return array with links', () => {
-    expect(getLinksFileMD(['exampleFileMD.md'])).toStrictEqual(arrayLinks)
+    expect(getLinksFileMD(['archivosdeprueba/exampleFileMD.md'])).toStrictEqual(arrayLinks)
   })
 })
 
