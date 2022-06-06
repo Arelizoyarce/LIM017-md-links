@@ -30,7 +30,8 @@ aprobación o negación.
 Si implementa la opción `--stats` se mostrará el total de links que hay en un archivo y cuántos de estos son únicos.
 ![stats](https://user-images.githubusercontent.com/98667463/172191844-a106496a-b724-43bc-8244-1851a0e0bcd4.png)
 # 4.
-si implementa la opción `--stats` se mostraran los links totales y únicos dentro del archivo.
+si implementa la opción `--validate --stats` se mostraran los links totales y únicos dentro del archivo y cuántos links
+están rotos
 ![ValidateStats](https://user-images.githubusercontent.com/98667463/172187018-d663ba97-0871-4b7c-97b5-01df61d9baf3.png)
 
 # Autoria:
