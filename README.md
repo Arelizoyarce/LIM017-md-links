@@ -7,7 +7,7 @@ enlaces totales en un archivo, enlaces únicos y enlaces rotos. Válido para car
 
 ## Manual de uso
 ### Instalación ⬇️
-El framework es instalable a través de `npm install <arelizoyarce>/md-links>`
+El framework es instalable a través de `npm i md-links-arelizoyarce`
 ### Funcionamiento
 Luego de haber instalado el framework, este sería ejecutable a través de `md-links <nombre del archivo>`
 o `md-links <nombre del archivo> <option>`.
@@ -33,6 +33,11 @@ Si implementa la opción `--stats` se mostrará el total de links que hay en un 
 si implementa la opción `--validate --stats` se mostraran los links totales y únicos dentro del archivo y cuántos links
 están rotos
 ![ValidateStats](https://user-images.githubusercontent.com/98667463/172187018-d663ba97-0871-4b7c-97b5-01df61d9baf3.png)
+
+### Librerias usadas:
+📌[Node-fetch](https://www.npmjs.com/package/node-fetch)
+📌[Chalk](https://www.npmjs.com/package/chalk)
+
 
 # Autoria:
 📌[Areliz Oyarce](https://www.linkedin.com/in/arelizoyarce/)
